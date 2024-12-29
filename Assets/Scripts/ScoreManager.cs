@@ -8,6 +8,10 @@ public class ScoreManager : MonoBehaviour
     public TMP_Text scoreText;
     private int score = 0;
 
+    [SerializeField] private int scoreThreshold = 10; // Editable in Inspector
+
+    public PlayerController playerController; // Reference to the PlayerController
+
     void Awake()
     {
         if (instance == null) instance = this;
@@ -23,7 +27,21 @@ public class ScoreManager : MonoBehaviour
         score += points;
         Debug.Log($"Score: {score}");
         UpdateScoreUI();
+
+        if (score >= scoreThreshold)
+        {
+            TriggerRagdoll();
+        }
     }
+
+    private void TriggerRagdoll()
+    {
+        if (playerController != null)
+        {
+            playerController.ActivateRagdoll();
+        }
+    }
+
 
     public int GetScore()
     {
