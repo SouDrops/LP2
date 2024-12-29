@@ -29,10 +29,10 @@ public class LookAroundState : PlayerBaseState
     }
     public override void Tick(float delta)
     {
-        MoveCamera(Vector3.zero, delta);
+        //MoveCamera(Vector3.zero, delta);
 
         stateMachine.animator.SetInteger(PropertyName, (int)stateMachine.rigidbody.velocity.magnitude);
 
-        stateMachine.MainCamera.transform.LookAt(stateMachine.LookPosition.position);   
+        //stateMachine.MainCamera.transform.LookAt(stateMachine.LookPosition.position);   
     }
 }

@@ -51,6 +51,6 @@ public class MovePlayerState : PlayerBaseState
         if(!stateMachine.audioSource.isPlaying) 
             stateMachine.audioSource.Play();
 
-        MoveCamera(direction * stateMachine.MovementSpeed, delta);
+        //MoveCamera(direction * stateMachine.MovementSpeed, delta);
     }
 }

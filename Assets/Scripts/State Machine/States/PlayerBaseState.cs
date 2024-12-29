@@ -9,8 +9,8 @@ public abstract class PlayerBaseState : State
     public PlayerBaseState(PlayerStateMachine stateMachine)
     { this.stateMachine = stateMachine; }
 
-    public void MoveCamera(Vector3 move, float deltaTime)
-    {
-        Camera.main.transform.position += move * deltaTime;
-    }
+    //public void MoveCamera(Vector3 move, float deltaTime)
+    //{
+    //    Camera.main.transform.position += move * deltaTime;
+    //}
 }
