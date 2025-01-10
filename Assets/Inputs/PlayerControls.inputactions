@@ -15,7 +15,7 @@
                     "initialStateCheck": true
                 },
                 {
-                    "name": "Mouse",
+                    "name": "Rotation",
                     "type": "Value",
                     "id": "e8f3db1c-39aa-4cc5-ad00-8170154066e7",
                     "expectedControlType": "Vector2",
@@ -96,7 +96,7 @@
                     "interactions": "",
                     "processors": "",
                     "groups": "",
-                    "action": "Mouse",
+                    "action": "Rotation",
                     "isComposite": false,
                     "isPartOfComposite": false
                 },

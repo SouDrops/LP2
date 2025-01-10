@@ -22,38 +22,7 @@ public class PlayerController : MonoBehaviour
 
     public GameObject ragdollRoot; // Reference to the ragdoll root
     
-    private bool isRagdollActive = false;
-
-    private NavMeshAgent navMeshAgent; // Reference to the NavMeshAgent
     private Animator animator; // Reference to the Animator
-
-
-    public void ActivateRagdoll()
-    {
-        if (isRagdollActive) return; // Prevent double activation
-        isRagdollActive = true;
-
-        // Stop the NavMeshAgent
-        if (navMeshAgent != null)
-        {
-            navMeshAgent.isStopped = true;
-            navMeshAgent.enabled = false; // Disable completely
-        }
-
-        // Disable Animator to stop animations
-        if (animator != null)
-        {
-            animator.enabled = false;
-        }
-
-        // Enable ragdoll physics
-        Rigidbody[] ragdollBodies = ragdollRoot.GetComponentsInChildren<Rigidbody>();
-        foreach (Rigidbody body in ragdollBodies)
-        {
-            body.isKinematic = false; // Enable physics simulation
-            body.detectCollisions = true; // Allow collisions
-        }
-    }
 
     private void Awake()
     {
@@ -68,8 +37,6 @@ public class PlayerController : MonoBehaviour
         //inputActions.Player.Mouse.started += Mouse_started;
         inputActions.Enable();
 
-        // Cache components
-        navMeshAgent = GetComponent<NavMeshAgent>();
         animator = GetComponent<Animator>();
     }
 

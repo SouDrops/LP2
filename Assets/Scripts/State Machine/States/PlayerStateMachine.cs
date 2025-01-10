@@ -1,3 +1,5 @@
+using Cinemachine;
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using Unity.AI.Navigation;
@@ -9,38 +11,36 @@ public class PlayerStateMachine : StateMachine
 {
     public Animator animator;
     public Rigidbody rigidbody;
-    public AudioSource audioSource;
 
-    [HideInInspector] public Camera MainCamera;
     [HideInInspector] public PlayerControls inputActions;
+    [HideInInspector] public Camera MainCamera;
 
-    //public Transform LookPosition;
+    public CameraInfo[] cameras;
+    private GameObject currentCamera;
+
+    public Transform LookPosition;
 
     [Header("Stats")]
     public float MovementSpeed;
     public float JumpForce = 10f;
 
-    public Transform followTarget;
-    public NavMeshAgent navMeshAgent; 
-    public NavMeshSurface navMeshSurface;
-    public NavMeshData navMeshData;
+
     void Awake()
     {
-        //inputActions = new PlayerControls();
-        //inputActions.Enable();
+        inputActions = new PlayerControls();
+        inputActions.Enable();
 
-        //inputActions.Player.Jump.started += OnJumpStarted;
+        MainCamera = Camera.main;
 
-        //MainCamera = Camera.main;
+        foreach (var c in cameras) 
+            c.camera.SetActive(false);
 
-        //SwitchState(new LookAroundState(this));
+        inputActions.Player.Jump.started += OnJumpStarted;
+
+        SwitchState(new LookAroundState(this));
     }
 
-    private void Update()
-    {
-       navMeshAgent.destination = followTarget.position;
-       navMeshSurface.UpdateNavMesh(navMeshData);
-    }
+
 
     private void OnDisable()
     {
@@ -59,4 +59,26 @@ public class PlayerStateMachine : StateMachine
             SwitchState(new JumpingState(this)); // Switch to jumping state
         }
     }
+
+    public void SwitchCamera(string name)
+    {
+        foreach (var c in cameras)
+        {
+            if (c.name == name)
+            {
+                currentCamera?.SetActive(false);
+                currentCamera = c.camera;
+                currentCamera?.SetActive(true);
+                break;
+            }
+        }
+    }
 }
+
+    [Serializable]
+    public class CameraInfo
+    {
+        public string name;
+        public GameObject camera;
+    }
+

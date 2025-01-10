@@ -6,16 +6,17 @@ using UnityEngine.InputSystem;
 
 public class LookAroundState : PlayerBaseState
 {
-
-    private readonly string PropertyName = "MovementSpeed";
-
     public LookAroundState(PlayerStateMachine stateMachine) : base(stateMachine)
     {
+        PropertyName = "Movement Speed";
+        CameraName = "Look";
     }
 
     public override void Enter()
     {
         stateMachine.inputActions.Player.Move.started += DetectMove;
+
+        stateMachine.SwitchCamera(CameraName);
     }
 
     public override void Exit()
@@ -29,10 +30,6 @@ public class LookAroundState : PlayerBaseState
     }
     public override void Tick(float delta)
     {
-        //MoveCamera(Vector3.zero, delta);
-
         stateMachine.animator.SetInteger(PropertyName, (int)stateMachine.rigidbody.velocity.magnitude);
-
-        //stateMachine.MainCamera.transform.LookAt(stateMachine.LookPosition.position);   
     }
 }
